@@ -11,6 +11,27 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+// Authentication Routes...
+Route::get('login', 'Auth\AuthController@showLoginForm');
+Route::post('login', 'Auth\AuthController@login');
+Route::get('logout', 'Auth\AuthController@logout');
+
+// Guest routes
+Route::group(['middleware' => ['stats']], function () {
+
+    Route::get('/', function () {
+        return view('blog.post');
+    });
+
+    Route::get('/page/{name}', function ($name) {
+        return view('blog.post', ['title' => ucfirst($name)]);
+    });
+
+});
+
+// Admin routes
+Route::group(['middleware' => ['auth']], function () {
+
+    Route::get('admin', 'Admin\\StatisticController@showGeneral');
+
 });
