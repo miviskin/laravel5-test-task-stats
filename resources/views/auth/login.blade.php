@@ -13,7 +13,7 @@
             <label for="inputEmail" class="sr-only">Email</label>
             <input type="email" id="inputEmail" class="form-control" name="email" value="{{ old('email') ?: 'admin@email.com' }}" placeholder="Email адрес" required autofocus>
 
-            <label for="inputPassword" class="sr-only">Пароль</label>
+            <label for="inputPassword" class="sr-only">Пароль (admin)</label>
             <input type="password" id="inputPassword" class="form-control" name="password" placeholder="Пароль" required>
 
             <div class="checkbox">
