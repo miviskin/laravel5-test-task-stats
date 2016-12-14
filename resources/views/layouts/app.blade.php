@@ -9,6 +9,7 @@
     <title>@yield('app.title')</title>
     <!-- Bootstrap -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" rel="stylesheet" type="text/css">
     <!-- Custom styles for this template -->
     <link href="{{ asset("assets/css/style.css") }}" rel="stylesheet">
 </head>

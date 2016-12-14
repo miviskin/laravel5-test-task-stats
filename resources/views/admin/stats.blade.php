@@ -5,9 +5,22 @@
 @section('admin.content')
     <h1 class="page-header">Статистика</h1>
 
+    {{--<div class="panel panel-default">--}}
+        {{--<div class="panel-body">--}}
+            {{--<form id="RangeStats" action="/admin/stats" method="get">--}}
+                {{--<div class="form-group">--}}
+                    {{--<label for="periodStats">Период статистики</label>--}}
+                    {{--<input type="text" class="form-control period-stats" id="periodStats">--}}
+                    {{--<input type="hidden" class="form-control" id="rangeStart" name="rangeStart">--}}
+                    {{--<input type="hidden" class="form-control" id="rangeEnd" name="rangeEnd">--}}
+                {{--</div>--}}
+            {{--</form>--}}
+        {{--</div>--}}
+    {{--</div>--}}
+
     <div class="panel panel-default">
         <div class="panel-heading">
-            <h3 class="panel-title">Топ 10 браузеров за последний час</h3>
+            <h3 class="panel-title">Браузеры</h3>
         </div>
         <table class="table table-striped">
             <thead>
@@ -37,7 +50,7 @@
 
     <div class="panel panel-default">
         <div class="panel-heading">
-            <h3 class="panel-title">Топ 10 систем за последний час</h3>
+            <h3 class="panel-title">Системы</h3>
         </div>
         <table class="table table-striped">
             <thead>
@@ -67,7 +80,7 @@
 
     <div class="panel panel-default">
         <div class="panel-heading">
-            <h3 class="panel-title">Топ 10 локаций за последний час</h3>
+            <h3 class="panel-title">Локации</h3>
         </div>
         <table class="table table-striped">
             <thead>
@@ -97,7 +110,7 @@
 
     <div class="panel panel-default">
         <div class="panel-heading">
-            <h3 class="panel-title">Топ 10 рефереров за последний час</h3>
+            <h3 class="panel-title">Рефереры</h3>
         </div>
         <table class="table table-striped">
             <thead>
@@ -127,7 +140,7 @@
 
     <div class="panel panel-default">
         <div class="panel-heading">
-            <h3 class="panel-title">Топ 10 страниц за последний час</h3>
+            <h3 class="panel-title">Страницы</h3>
         </div>
         <table class="table table-striped">
             <thead>

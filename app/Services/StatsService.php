@@ -34,16 +34,15 @@ class StatsService
     }
 
     /**
-     * Collect statistics
+     * Collect stats.
      *
      * @param Request $request
+     * @param string $key
      */
-    public function collect(Request $request)
+    public function collectStats(Request $request, $key = 'general')
     {
-        $lastHour = (new Carbon())->format('Y-m-d-H');
-        $keyPrefix = "{$this->prefix}:{$lastHour}";
+        $keyPrefix = "{$this->prefix}:{$key}";
         $ip = $request->server('REMOTE_ADDR');
-
         $collects = [
             'platform' => $this->getPlatformName($request),
             'browser' => $this->getBrowserName($request),
@@ -92,6 +91,59 @@ class StatsService
         });
 
         return array_combine($names, $stats);
+    }
+
+    /**
+     * Generate date range.
+     *
+     * @param \DateTime $startDate
+     * @param \DateTime $endDate
+     * @param string $format
+     * @return array
+     */
+    protected function generateDateRange(\DateTime $startDate, \DateTime $endDate, $format = 'Y-m-d-H')
+    {
+        $dates = [];
+        $interval = new \DateInterval('PT1H');
+        $daterange = new \DatePeriod($startDate, $interval, $endDate);
+
+        foreach($daterange as $date){
+            $dates[] = $date->format($format);
+        }
+
+        return $dates;
+    }
+
+    /**
+     * Get stats from start date to end date by given key.
+     *
+     * @param string $key
+     * @param \DateTime $startDate
+     * @param \DateTime $endDate
+     * @param int $limit
+     * @return array
+     */
+    public function getRangeStats($key, \DateTime $startDate, \DateTime $endDate, $limit = 10)
+    {
+        $dates = $this->generateDateRange($startDate, $endDate);
+        $stats = Redis::pipeline(function ($pipe) use ($key, $dates, $limit) {
+            foreach ($dates as $date) {
+                $pipe->zRevRange("{$this->prefix}:{$date}:{$key}", 0, $limit - 1, 'WITHSCORES');
+            }
+        });
+
+        return array_combine($dates, $stats);
+    }
+
+    public function getUnionStats(array $keys)
+    {
+        $stats = Redis::pipeline(function ($pipe) use ($keys) {
+            $keys = array_map(function ($key) {
+                return "{$this->prefix}:{$key}";
+            }, $keys);
+
+            $pipe->zUnionStore("destination", count($keys), "{$this->prefix}:{$date}:{$key}", 0, -1, 'WITHSCORES');
+        });
     }
 
     /**

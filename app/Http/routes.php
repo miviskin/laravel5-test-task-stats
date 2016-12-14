@@ -30,8 +30,14 @@ Route::group(['middleware' => ['stats']], function () {
 });
 
 // Admin routes
-Route::group(['middleware' => ['auth']], function () {
+Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['auth']], function () {
 
-    Route::get('admin', 'Admin\\StatisticController@showGeneral');
+    Route::get('/', function () {
+        return redirect('/admin/stats');
+    });
 
+    Route::group(['prefix' => 'stats'], function () {
+
+        Route::get('/', 'StatsController@showGeneral');
+    });
 });

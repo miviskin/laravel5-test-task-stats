@@ -43,6 +43,64 @@
         </div>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
+    <script type="application/javascript">
+        $(function () {
+            // www.daterangepicker.com
+            $('input.period-stats').daterangepicker({
+                timePicker: true,
+                timePicker24Hour: true,
+                timePickerIncrement: 60,
+                alwaysShowCalendars: true,
+                showCustomRangeLabel: false,
+                ranges: {
+                    "За 24 часа": [moment().subtract(1, 'days'), moment()],
+                    "За 7 дней": [moment().subtract(6, 'days'), moment()],
+                    "За месяц": [moment().subtract(30, 'days'), moment()],
+                },
+                locale: {
+                    format: 'YYYY.MM.DD HH:00',
+                    applyLabel: "Показать",
+                    cancelLabel: "Отмена",
+                    fromLabel: "с",
+                    toLabel: "до",
+                    daysOfWeek: [
+                        "Вс",
+                        "Пн",
+                        "Вт",
+                        "Ср",
+                        "Чт",
+                        "Пт",
+                        "Сб"
+                    ],
+                    monthNames: [
+                        "Январь",
+                        "Февраль",
+                        "Март",
+                        "Фпрель",
+                        "Май",
+                        "Июнь",
+                        "Июль",
+                        "Август",
+                        "Сентябрь",
+                        "Октябрь",
+                        "Ноябрь",
+                        "Декабрь"
+                    ],
+                    "firstDay": 1
+                },
+                startDate: moment().startOf('day'),
+                endDate: moment()
+            },
+            function(start, end, label) {
+                var form = $('#RangeStats');
+                form.find('#rangeStart').val(start.format('YYYY-MM-DD-HH'));
+                form.find('#rangeEnd').val(end.format('YYYY-MM-DD-HH'));
+                form.submit();
+            });
+        })
+    </script>
 @endsection

@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Carbon\Carbon;
 use App\Services\StatsService;
 
 class CollectStatistics
@@ -33,7 +34,8 @@ class CollectStatistics
      */
     public function handle($request, Closure $next)
     {
-        $this->statsService->collect($request);
+        $this->statsService->collectStats($request);
+        $this->statsService->collectStats($request, Carbon::now()->format('Y-m-d-H'));
 
         return $next($request);
     }
