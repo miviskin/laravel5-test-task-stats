@@ -132,7 +132,7 @@
         <table class="table table-striped">
             <thead>
             <tr>
-                <th>Хост</th>
+                <th>Страница</th>
                 <th>Хиты</th>
                 <th>Уники по IP</th>
                 <th>Уники по кукам</th>
